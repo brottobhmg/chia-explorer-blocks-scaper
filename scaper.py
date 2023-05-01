@@ -13,11 +13,11 @@ print("Height of blockchain: "+str(last_block))
 data=[]
 f=open("chia.json","w")
 f.write("{\n")
-i=0
-while i<last_block:
+i=816488
+while i<1500000:
 
     try:
-        response=requests.get(blocks_address+str(i))
+        response=requests.get(blocks_address+str(i),timeout=10)
     except:
         time.sleep(10)
         continue
@@ -27,8 +27,11 @@ while i<last_block:
         continue
     response=json.loads(response.text)
 
-
-    response2=requests.get(tx_address[:-6]+str(i)+tx_address[-6:])
+    try:
+        response2=requests.get(tx_address[:-6]+str(i)+tx_address[-6:],timeout=10)
+    except:
+        time.sleep(10)
+        continue
     if response2.status_code>=400:
         print("Status code: "+str(response2.status_code))
         time.sleep(10)

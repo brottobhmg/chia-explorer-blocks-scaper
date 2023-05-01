@@ -1,0 +1,2 @@
+python scaper.py
+pause
